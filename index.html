@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QPD: The Investment Opportunity</title>
+    <title>QBank: The Investment Opportunity</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals with Subtle Accents -->
-    <!-- Application Structure Plan: A single-page, tabbed dashboard structure. The user navigates through key pitch sections (The Problem, Our Solution, Market, Financials, The Ask) using a clear top navigation. This structure was chosen to mirror a logical presentation flow, making it easy for an "investor" to digest complex information sequentially. Each section is a self-contained module with interactive charts and data points, designed for clarity and impact. The flow is linear, guiding the user from the high-level concept to the detailed financial ask, which is ideal for a pitch scenario. -->
+    <!-- Application Structure Plan: A single-page, tabbed dashboard structure. The user navigates through key pitch sections (The Pitch, Market, Financials, The Ask) using a clear top navigation on desktop and a responsive sidebar on mobile. This structure was chosen to mirror a logical presentation flow, making it easy for an "investor" to digest complex information sequentially. Each section is a self-contained module with interactive charts and data points, designed for clarity and impact. The flow is linear, guiding the user from the high-level concept to the detailed financial ask, which is ideal for a pitch scenario. -->
     <!-- Visualization & Content Choices: 
         - Market Growth: Report Info -> EdTech market size/growth data. Goal -> Show massive, undeniable growth. Viz -> Bar Chart (Chart.js). Interaction -> Hover for exact values. Justification -> Bar charts are excellent for comparing sizes of different but related market segments.
         - Financial Projections: Report Info -> 5-year revenue/profit projections. Goal -> Demonstrate a clear path to profitability. Viz -> Line/Bar Combo Chart (Chart.js). Interaction -> Toggle between revenue, expenses, and profit views. Justification -> A combo chart effectively shows the relationship between revenue growth and profitability over time.
@@ -85,6 +85,35 @@
             background-color: #D97706;
             color: white;
         }
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Hidden by default */
+            width: 250px;
+            height: 100%;
+            background-color: #FFF;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            transition: left 0.3s ease-in-out;
+            z-index: 100;
+            padding-top: 4rem;
+        }
+        .sidebar.open {
+            left: 0;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 90;
+            display: none;
+        }
+        .overlay.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -94,7 +123,10 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
                     <div class="flex items-center">
-                        <span class="text-2xl font-bold text-amber-700">QPD</span>
+                        <button id="menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-amber-500 mr-2">
+                            &#9776; <!-- Hamburger icon -->
+                        </button>
+                        <span class="text-2xl font-bold text-amber-700">QBank</span>
                         <span class="ml-3 text-xl font-semibold text-gray-700">The Question Paper Database</span>
                     </div>
                     <nav class="hidden md:flex space-x-8">
@@ -106,6 +138,17 @@
                 </div>
             </div>
         </header>
+
+        <!-- Sidebar for mobile -->
+        <div id="sidebar" class="sidebar">
+            <nav class="flex flex-col p-4 space-y-2">
+                <a class="nav-link sidebar-link active font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="intro">The Pitch</a>
+                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="market">Market</a>
+                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="financials">Financials</a>
+                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="ask">The Ask</a>
+            </nav>
+        </div>
+        <div id="overlay" class="overlay"></div>
 
         <main class="container mx-auto p-4 sm:p-6 lg:p-8">
             <!-- Introduction / The Pitch Section -->
@@ -135,8 +178,8 @@
                         </ul>
                     </div>
                     <div class="card p-6">
-                        <h3 class="text-2xl font-bold mb-4 text-center">Our Solution: The QPD Engine</h3>
-                        <p class="text-gray-600 mb-6 text-center">QPD is an intelligent, adaptive platform that serves everyone in the education ecosystem. We use advanced AI and mathematical principles to deliver a superior experience.</p>
+                        <h3 class="text-2xl font-bold mb-4 text-center">Our Solution: The QBank Engine</h3>
+                        <p class="text-gray-600 mb-6 text-center">QBank is an intelligent, adaptive platform that serves everyone in the education ecosystem. We use advanced AI and mathematical principles to deliver a superior experience.</p>
                         
                         <div class="bg-gray-100 rounded-lg p-4 mb-4">
                             <div class="flex justify-center space-x-2 mb-4">
@@ -172,7 +215,7 @@
 
                 <div class="card p-6 md:p-8 mb-12">
                      <h3 class="text-2xl font-bold text-center mb-2">EdTech Market Growth Projections (USD Billions)</h3>
-                     <p class="text-center text-gray-500 mb-6">This chart visualizes the massive growth projected across key sectors QPD operates in. Hover over the bars to see the projected market size for 2033-2037.</p>
+                     <p class="text-center text-gray-500 mb-6">This chart visualizes the massive growth projected across key sectors QBank operates in. Hover over the bars to see the projected market size for 2033-2037.</p>
                     <div class="chart-container">
                         <canvas id="marketGrowthChart"></canvas>
                     </div>
@@ -264,7 +307,7 @@
                             </ul>
                         </div>
                          <div class="text-center">
-                            <button class="btn-primary font-bold py-3 px-8 rounded-full text-lg">Invest in QPD</button>
+                            <button class="btn-primary font-bold py-3 px-8 rounded-full text-lg">Invest in QBank</button>
                         </div>
                     </div>
                 </div>
@@ -276,13 +319,30 @@
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('.content-section');
+            const menuButton = document.getElementById('menu-button');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            }
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('active');
+            }
+
+            menuButton.addEventListener('click', openSidebar);
+            overlay.addEventListener('click', closeSidebar);
 
             navLinks.forEach(link => {
-                link.addEventListener('click', () => {
+                link.addEventListener('click', (event) => {
                     const target = link.getAttribute('data-target');
 
                     navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
+                    // Add active class to the clicked link, handling both desktop and sidebar links
+                    document.querySelectorAll(`.nav-link[data-target="${target}"]`).forEach(l => l.classList.add('active'));
 
                     contentSections.forEach(section => {
                         if (section.id === target) {
@@ -291,6 +351,11 @@
                             section.classList.remove('active');
                         }
                     });
+
+                    // Close sidebar if a link inside it was clicked
+                    if (link.classList.contains('sidebar-link')) {
+                        closeSidebar();
+                    }
                 });
             });
             
