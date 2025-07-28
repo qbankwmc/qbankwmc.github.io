@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QBank: The Investment Opportunity</title>
+    <title>QBank: The Investment Opportunity Prototype</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals with Subtle Accents -->
-    <!-- Application Structure Plan: A single-page, tabbed dashboard structure. The user navigates through key pitch sections (The Pitch, Market, Financials, The Ask) using a clear top navigation on desktop and a responsive sidebar on mobile. This structure was chosen to mirror a logical presentation flow, making it easy for an "investor" to digest complex information sequentially. Each section is a self-contained module with interactive charts and data points, designed for clarity and impact. The flow is linear, guiding the user from the high-level concept to the detailed financial ask, which is ideal for a pitch scenario. -->
+    <!-- Application Structure Plan: A single-page, tabbed dashboard structure. The user navigates through key pitch sections (The Pitch, Market, Financials, The Ask) and new prototype sections (Students, Schools, Organizers) using a clear top navigation on desktop and a responsive sidebar on mobile. This structure was chosen to mirror a logical presentation flow for the pitch, and then branch into detailed functional prototypes for each user segment, making it easy for a user to explore the platform's capabilities. Each section is a self-contained module with interactive charts and data points, designed for clarity and impact. The flow is linear for the pitch, then task-oriented for the prototype sections. -->
     <!-- Visualization & Content Choices: 
         - Market Growth: Report Info -> EdTech market size/growth data. Goal -> Show massive, undeniable growth. Viz -> Bar Chart (Chart.js). Interaction -> Hover for exact values. Justification -> Bar charts are excellent for comparing sizes of different but related market segments.
         - Financial Projections: Report Info -> 5-year revenue/profit projections. Goal -> Demonstrate a clear path to profitability. Viz -> Line/Bar Combo Chart (Chart.js). Interaction -> Toggle between revenue, expenses, and profit views. Justification -> A combo chart effectively shows the relationship between revenue growth and profitability over time.
         - Budget Allocation: Report Info -> First-year budget breakdown. Goal -> Show responsible and strategic use of funds. Viz -> Donut Chart (Chart.js). Interaction -> Hover to see percentage and amount for each category. Justification -> Donut charts are perfect for showing parts of a whole.
-        - User Segments: Report Info -> Student, School, Organizer benefits. Goal -> Clearly define target audiences. Viz -> Tabbed card layout (HTML/CSS/JS). Interaction -> Click tabs to reveal detailed benefits for each segment. Justification -> An interactive tab system organizes a lot of text cleanly without overwhelming the user.
+        - User Segments (Intro): Report Info -> Student, School, Organizer benefits. Goal -> Clearly define target audiences. Viz -> Tabbed card layout (HTML/CSS/JS). Interaction -> Click tabs to reveal detailed benefits for each segment. Justification -> An interactive tab system organizes a lot of text cleanly without overwhelming the user.
+        - Student Progress: Report Info -> Mock student progress. Goal -> Show individual revision status. Viz -> Progress bars (HTML/CSS). Interaction -> Visual update of progress. Justification -> Progress bars are intuitive for showing completion status.
+        - Student Analytics (Schools): Report Info -> Mock student performance data. Goal -> Show teachers insights into class performance. Viz -> Bar chart (Chart.js). Interaction -> Hover for details. Justification -> Bar charts are good for comparing average scores.
+        - Exam Analytics (Organizers): Report Info -> Mock question difficulty data. Goal -> Show organizers insights into exam question performance. Viz -> Doughnut chart (Chart.js). Interaction -> Hover for details. Justification -> Doughnut charts are good for showing distribution of categories.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -114,6 +117,19 @@
         .overlay.active {
             display: block;
         }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 9999px;
+            overflow: hidden;
+            height: 8px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #D97706;
+            border-radius: 9999px;
+            transition: width 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -134,6 +150,9 @@
                         <a class="nav-link font-medium" data-target="market">Market</a>
                         <a class="nav-link font-medium" data-target="financials">Financials</a>
                         <a class="nav-link font-medium" data-target="ask">The Ask</a>
+                        <a class="nav-link font-medium" data-target="students-proto">Students</a>
+                        <a class="nav-link font-medium" data-target="schools-proto">Schools</a>
+                        <a class="nav-link font-medium" data-target="organizers-proto">Organizers</a>
                     </nav>
                 </div>
             </div>
@@ -146,6 +165,9 @@
                 <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="market">Market</a>
                 <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="financials">Financials</a>
                 <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="ask">The Ask</a>
+                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="students-proto">Students</a>
+                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="schools-proto">Schools</a>
+                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="organizers-proto">Organizers</a>
             </nav>
         </div>
         <div id="overlay" class="overlay"></div>
@@ -312,6 +334,169 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Students Prototype Section -->
+            <section id="students-proto" class="content-section">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">QBank for Students: Your Path to Mastery.</h1>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">Dive into personalized revision, practice mock exams, and stay on top of your homework. QBank adapts to your learning style, helping you excel in mathematics.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Revise for Exams</h3>
+                        <p class="text-gray-600 mb-4">Select a topic to begin your personalized revision journey. Track your progress and focus on areas needing improvement.</p>
+                        <ul class="space-y-4" id="revision-list">
+                            <!-- Revision items will be injected here by JS -->
+                        </ul>
+                    </div>
+
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Mock Exams</h3>
+                        <p class="text-gray-600 mb-4">Prepare for your big tests with full-length, timed mock exams. Get instant scores and detailed performance breakdowns.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+                                <span class="font-medium text-gray-800">Algebra Mid-Term Mock</span>
+                                <button class="btn-primary text-sm px-4 py-2 rounded-md">Start Exam</button>
+                            </li>
+                            <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+                                <span class="font-medium text-gray-800">Geometry Final Mock</span>
+                                <button class="btn-primary text-sm px-4 py-2 rounded-md">Start Exam</button>
+                            </li>
+                            <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+                                <span class="font-medium text-gray-800">Pre-Calculus Unit 3 Test</span>
+                                <button class="btn-primary text-sm px-4 py-2 rounded-md">Start Exam</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Homework</h3>
+                        <p class="text-gray-600 mb-4">View and complete assignments set by your teachers. All your homework in one place.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+                                <span class="font-medium text-gray-800">Chapter 5 Review (Due: 28/07)</span>
+                                <span class="text-sm text-amber-600 font-semibold">Assigned</span>
+                            </li>
+                            <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+                                <span class="font-medium text-gray-800">Quadratic Equations Practice (Completed)</span>
+                                <span class="text-sm text-green-600 font-semibold">Completed</span>
+                            </li>
+                            <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+                                <span class="font-medium text-gray-800">Trigonometry Basics (Due: 05/08)</span>
+                                <span class="text-sm text-amber-600 font-semibold">Assigned</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Schools Prototype Section -->
+            <section id="schools-proto" class="content-section">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">QBank for Schools: Empowering Educators.</h1>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">Streamline question creation, track mock exams, and gain deep insights into student performance with powerful analytics.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Create Questions for Exams</h3>
+                        <p class="text-gray-600 mb-4">Generate new questions or select from our vast database. Customize difficulty, topic, and question type instantly.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="question-text" class="block text-sm font-medium text-gray-700">Question Text</label>
+                                <textarea id="question-text" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2"></textarea>
+                            </div>
+                            <div>
+                                <label for="question-topic" class="block text-sm font-medium text-gray-700">Topic</label>
+                                <input type="text" id="question-topic" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2">
+                            </div>
+                            <div>
+                                <label for="question-difficulty" class="block text-sm font-medium text-gray-700">Difficulty</label>
+                                <select id="question-difficulty" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2">
+                                    <option>Easy</option>
+                                    <option>Medium</option>
+                                    <option>Hard</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary font-bold py-2 px-4 rounded-md">Generate Question</button>
+                        </div>
+                    </div>
+
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Track Mock Exams</h3>
+                        <p class="text-gray-600 mb-4">Monitor the performance of mock exams administered to your students. See completion rates and average scores.</p>
+                        <ul class="space-y-3">
+                            <li class="p-3 bg-gray-50 rounded-md">
+                                <p class="font-medium text-gray-800">Year 10 Algebra Mock (Spring 2025)</p>
+                                <p class="text-sm text-gray-600">Students Taken: 85/100 | Average Score: 72%</p>
+                            </li>
+                            <li class="p-3 bg-gray-50 rounded-md">
+                                <p class="font-medium text-gray-800">Year 11 Geometry Practice (Autumn 2024)</p>
+                                <p class="text-sm text-gray-600">Students Taken: 92/95 | Average Score: 68%</p>
+                            </li>
+                        </ul>
+                        <h3 class="text-2xl font-bold mt-8 mb-4">Student Analytics</h3>
+                        <p class="text-gray-600 mb-4">Visualize class performance over time and identify common areas of struggle. Hover over bars for details.</p>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="studentAnalyticsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Organizers Prototype Section -->
+            <section id="organizers-proto" class="content-section">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">QBank for Organizers: Flawless Competitions.</h1>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">Manage participant data, analyze exam performance, and generate unique, high-quality questions for your competitions.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Import Data</h3>
+                        <p class="text-gray-600 mb-4">Easily import participant lists, scores, or existing question banks. Supports various formats for seamless integration.</p>
+                        <div class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 text-center h-48">
+                            <p class="text-gray-500 mb-2">Drag & Drop your files here or</p>
+                            <button class="btn-primary font-bold py-2 px-4 rounded-md">Browse Files</button>
+                            <p class="text-xs text-gray-400 mt-2">Max file size: 10MB (mock functionality)</p>
+                        </div>
+
+                        <h3 class="text-2xl font-bold mt-8 mb-4">Question Maker</h3>
+                        <p class="text-gray-600 mb-4">Advanced question generation with tagging, categorization, and difficulty calibration for competition-grade exams.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="org-question-text" class="block text-sm font-medium text-gray-700">Question Prompt</label>
+                                <textarea id="org-question-text" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2"></textarea>
+                            </div>
+                            <div>
+                                <label for="org-question-tags" class="block text-sm font-medium text-gray-700">Tags (e.g., Algebra, Geometry, Proof)</label>
+                                <input type="text" id="org-question-tags" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2">
+                            </div>
+                            <button class="btn-primary font-bold py-2 px-4 rounded-md">Create Advanced Question</button>
+                        </div>
+                    </div>
+
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Exam Analytics</h3>
+                        <p class="text-gray-600 mb-4">Gain insights into exam performance, identify challenging questions, and analyze participant strengths and weaknesses. Hover over chart for details.</p>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="examAnalyticsChart"></canvas>
+                        </div>
+                        <h4 class="font-bold text-lg mt-8 mb-3">Sample Hard Questions</h4>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li class="p-2 bg-gray-50 rounded-md">
+                                <p class="font-medium">"Prove that $ \sqrt{2} $ is irrational."</p>
+                                <p class="text-xs text-gray-500">Success Rate: 25% | Topic: Number Theory</p>
+                            </li>
+                            <li class="p-2 bg-gray-50 rounded-md">
+                                <p class="font-medium">"Solve for x: $ e^{2x} - 5e^x + 6 = 0 $"</p>
+                                <p class="text-xs text-gray-500">Success Rate: 38% | Topic: Algebra</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -341,7 +526,6 @@
                     const target = link.getAttribute('data-target');
 
                     navLinks.forEach(l => l.classList.remove('active'));
-                    // Add active class to the clicked link, handling both desktop and sidebar links
                     document.querySelectorAll(`.nav-link[data-target="${target}"]`).forEach(l => l.classList.add('active'));
 
                     contentSections.forEach(section => {
@@ -352,7 +536,6 @@
                         }
                     });
 
-                    // Close sidebar if a link inside it was clicked
                     if (link.classList.contains('sidebar-link')) {
                         closeSidebar();
                     }
@@ -552,10 +735,116 @@
                     }
                 });
             }
+
+            function renderStudentAnalyticsChart() {
+                const ctx = document.getElementById('studentAnalyticsChart')?.getContext('2d');
+                if (!ctx) return;
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Sept', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
+                        datasets: [{
+                            label: 'Class Average Score (%)',
+                            data: [65, 68, 70, 69, 73, 75, 74, 78],
+                            backgroundColor: '#F59E0B',
+                            borderColor: '#D97706',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: { ...chartOptions,
+                        scales: { ...chartOptions.scales,
+                            y: { ...chartOptions.scales.y,
+                                max: 100,
+                                ticks: { ...chartOptions.scales.y.ticks,
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function renderExamAnalyticsChart() {
+                const ctx = document.getElementById('examAnalyticsChart')?.getContext('2d');
+                if (!ctx) return;
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Easy Questions', 'Medium Questions', 'Hard Questions'],
+                        datasets: [{
+                            label: 'Question Difficulty Distribution',
+                            data: [40, 35, 25],
+                            backgroundColor: ['#10B981', '#FBBF24', '#EF4444'], // Green, Yellow, Red
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#3A3A3A',
+                                    font: { family: 'Inter' },
+                                    boxWidth: 15,
+                                    padding: 15
+                                }
+                            },
+                            tooltip: { ...chartOptions.plugins.tooltip,
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Mock data for student revision progress
+            const revisionTopics = [
+                { name: 'Algebra Fundamentals', done: 15, total: 20 },
+                { name: 'Geometry Basics', done: 8, total: 15 },
+                { name: 'Calculus Introduction', done: 5, total: 10 },
+                { name: 'Statistics & Probability', done: 12, total: 25 }
+            ];
+
+            const revisionList = document.getElementById('revision-list');
+            if (revisionList) {
+                revisionTopics.forEach(topic => {
+                    const percentage = (topic.done / topic.total) * 100;
+                    const listItem = `
+                        <li class="p-3 bg-gray-50 rounded-md">
+                            <p class="font-medium text-gray-800">${topic.name}</p>
+                            <div class="flex items-center mt-1">
+                                <span class="text-sm text-gray-600 mr-2">${topic.done}/${topic.total} questions</span>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: ${percentage}%;"></div>
+                                </div>
+                                <span class="text-sm text-gray-600 ml-2">${Math.round(percentage)}%</span>
+                            </div>
+                        </li>
+                    `;
+                    revisionList.innerHTML += listItem;
+                });
+            }
             
             renderMarketGrowthChart();
             renderFinancialProjectionsChart();
             renderBudgetAllocationChart();
+            renderStudentAnalyticsChart();
+            renderExamAnalyticsChart();
         });
     </script>
 </body>
