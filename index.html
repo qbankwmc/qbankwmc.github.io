@@ -130,6 +130,45 @@
             border-radius: 9999px;
             transition: width 0.5s ease-in-out;
         }
+        /* Dropdown styles */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            top: 100%; /* Position below the parent nav-link */
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem 0;
+        }
+        .dropdown-content a {
+            color: #3A3A3A;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .sidebar-dropdown-content {
+            display: none;
+            padding-left: 1rem;
+        }
+        .sidebar-dropdown-content.open {
+            display: block;
+        }
+        .sidebar-dropdown-content a {
+            padding: 0.5rem 0.5rem 0.5rem 1.5rem; /* Indent sub-items */
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -143,16 +182,20 @@
                             &#9776; <!-- Hamburger icon -->
                         </button>
                         <span class="text-2xl font-bold text-amber-700">QBank</span>
-                        <span class="ml-3 text-xl font-semibold text-gray-700">The Question Paper Database</span>
                     </div>
                     <nav class="hidden md:flex space-x-8">
                         <a class="nav-link active font-medium" data-target="intro">The Pitch</a>
                         <a class="nav-link font-medium" data-target="market">Market</a>
                         <a class="nav-link font-medium" data-target="financials">Financials</a>
                         <a class="nav-link font-medium" data-target="ask">The Ask</a>
-                        <a class="nav-link font-medium" data-target="students-proto">Students</a>
-                        <a class="nav-link font-medium" data-target="schools-proto">Schools</a>
-                        <a class="nav-link font-medium" data-target="organizers-proto">Organizers</a>
+                        <div class="relative group">
+                            <a class="nav-link font-medium" href="#" id="solutions-dropdown-toggle">Our Solutions</a>
+                            <div class="dropdown-content">
+                                <a class="nav-link font-medium" data-target="students-proto">Students</a>
+                                <a class="nav-link font-medium" data-target="schools-proto">Schools</a>
+                                <a class="nav-link font-medium" data-target="organizers-proto">Organizers</a>
+                            </div>
+                        </div>
                     </nav>
                 </div>
             </div>
@@ -165,9 +208,14 @@
                 <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="market">Market</a>
                 <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="financials">Financials</a>
                 <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="ask">The Ask</a>
-                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="students-proto">Students</a>
-                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="schools-proto">Schools</a>
-                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="organizers-proto">Organizers</a>
+                <div class="relative">
+                    <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" href="#" id="sidebar-solutions-toggle">Our Solutions &#9662;</a>
+                    <div class="sidebar-dropdown-content" id="sidebar-solutions-content">
+                        <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="students-proto">Students</a>
+                        <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="schools-proto">Schools</a>
+                        <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="organizers-proto">Organizers</a>
+                    </div>
+                </div>
             </nav>
         </div>
         <div id="overlay" class="overlay"></div>
@@ -507,6 +555,8 @@
             const menuButton = document.getElementById('menu-button');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
+            const sidebarSolutionsToggle = document.getElementById('sidebar-solutions-toggle');
+            const sidebarSolutionsContent = document.getElementById('sidebar-solutions-content');
 
             function closeSidebar() {
                 sidebar.classList.remove('open');
@@ -521,12 +571,39 @@
             menuButton.addEventListener('click', openSidebar);
             overlay.addEventListener('click', closeSidebar);
 
+            // Toggle sidebar solutions dropdown
+            if (sidebarSolutionsToggle) {
+                sidebarSolutionsToggle.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent default link behavior
+                    sidebarSolutionsContent.classList.toggle('open');
+                    // Change arrow direction
+                    const arrow = sidebarSolutionsToggle.querySelector('span:last-child');
+                    if (arrow) {
+                        arrow.innerHTML = sidebarSolutionsContent.classList.contains('open') ? '&#9650;' : '&#9662;';
+                    }
+                });
+            }
+
             navLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
                     const target = link.getAttribute('data-target');
+                    if (!target) return; // Skip if it's a parent link like "Our Solutions"
 
                     navLinks.forEach(l => l.classList.remove('active'));
+                    // Add active class to the clicked link, handling both desktop and sidebar links
                     document.querySelectorAll(`.nav-link[data-target="${target}"]`).forEach(l => l.classList.add('active'));
+
+                    // Also set the parent "Our Solutions" link to active if a sub-link is clicked
+                    const parentSolutionLink = document.getElementById('solutions-dropdown-toggle');
+                    const sidebarParentSolutionLink = document.getElementById('sidebar-solutions-toggle');
+                    if (['students-proto', 'schools-proto', 'organizers-proto'].includes(target)) {
+                        if (parentSolutionLink) parentSolutionLink.classList.add('active');
+                        if (sidebarParentSolutionLink) sidebarParentSolutionLink.classList.add('active');
+                    } else {
+                        if (parentSolutionLink) parentSolutionLink.classList.remove('active');
+                        if (sidebarParentSolutionLink) sidebarParentSolutionLink.classList.remove('active');
+                    }
+
 
                     contentSections.forEach(section => {
                         if (section.id === target) {
