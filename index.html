@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QBank: The Investment Opportunity Prototype</title>
+    <title>QBank: The Investment Opportunity Prototype (Enhanced)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals with Subtle Accents -->
-    <!-- Application Structure Plan: A single-page, tabbed dashboard structure. The user navigates through key pitch sections (The Pitch, Market, Financials, The Ask) and new prototype sections (Students, Schools, Organizers) using a clear top navigation on desktop and a responsive sidebar on mobile. This structure was chosen to mirror a logical presentation flow for the pitch, and then branch into detailed functional prototypes for each user segment, making it easy for a user to explore the platform's capabilities. Each section is a self-contained module with interactive charts and data points, designed for clarity and impact. The flow is linear for the pitch, then task-oriented for the prototype sections. -->
+    <!-- Application Structure Plan: A single-page, tabbed dashboard structure. The user navigates through key pitch sections (The Pitch, Market, Financials, The Ask) and new prototype sections (Students, Schools, Organizers, Content Creation & Licensing, Legality & Ethical AI) and a dedicated Differentiation tab using a clear top navigation on desktop and a responsive sidebar on mobile. This structure was chosen to mirror a logical presentation flow for the pitch, and then branch into detailed functional prototypes and critical business aspects for each user segment and investor concern, making it easy for a user to explore the platform's capabilities. Each section is a self-contained module with interactive charts and data points, designed for clarity and impact. The flow is linear for the pitch, then task-oriented for the prototype sections. -->
     <!-- Visualization & Content Choices: 
         - Market Growth: Report Info -> EdTech market size/growth data. Goal -> Show massive, undeniable growth. Viz -> Bar Chart (Chart.js). Interaction -> Hover for exact values. Justification -> Bar charts are excellent for comparing sizes of different but related market segments.
         - Financial Projections: Report Info -> 5-year revenue/profit projections. Goal -> Demonstrate a clear path to profitability. Viz -> Line/Bar Combo Chart (Chart.js). Interaction -> Toggle between revenue, expenses, and profit views. Justification -> A combo chart effectively shows the relationship between revenue growth and profitability over time.
@@ -19,6 +19,8 @@
         - Student Progress: Report Info -> Mock student progress. Goal -> Show individual revision status. Viz -> Progress bars (HTML/CSS). Interaction -> Visual update of progress. Justification -> Progress bars are intuitive for showing completion status.
         - Student Analytics (Schools): Report Info -> Mock student performance data. Goal -> Show teachers insights into class performance. Viz -> Bar chart (Chart.js). Interaction -> Hover for details. Justification -> Bar charts are good for comparing average scores.
         - Exam Analytics (Organizers): Report Info -> Mock question difficulty data. Goal -> Show organizers insights into exam question performance. Viz -> Doughnut chart (Chart.js). Interaction -> Hover for details. Justification -> Doughnut charts are good for showing distribution of categories.
+        - Content Creation & Licensing / Legality & Ethical AI: Report Info -> Detailed textual explanations of strategies and differentiators. Goal -> Provide clear, comprehensive information on these critical aspects. Viz -> Structured text with headings and bullet points. Interaction -> Navigation via tabs/sidebar. Justification -> Textual explanation is most appropriate given the qualitative nature of this information and the lack of specific numerical data for charts.
+        - Competitive Differentiation: Report Info -> Textual explanation of differentiators. Goal -> Clearly articulate QBank's unique advantages. Viz -> Structured text with headings and bullet points, plus a comparison table (HTML/CSS) for a quick visual summary. Interaction -> Navigation via tabs/sidebar, and direct comparison in table. Justification -> Table provides a concise, at-a-glance comparison.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -167,6 +169,31 @@
         .sidebar-dropdown-content a {
             padding: 0.5rem 0.5rem 0.5rem 1.5rem; /* Indent sub-items */
         }
+        .comparison-table th, .comparison-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        .comparison-table th {
+            background-color: #F9FAFB;
+            font-weight: 600;
+            color: #4B5563;
+        }
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: #374151;
+        }
+        .tick {
+            color: #10B981; /* Green */
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .cross {
+            color: #EF4444; /* Red */
+            font-weight: bold;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -188,12 +215,15 @@
                         <a class="nav-link font-medium" data-target="ask">The Ask</a>
                         <div class="relative group">
                             <a class="nav-link font-medium" href="#" id="solutions-dropdown-toggle">Our Solutions</a>
-                            <div class="dropdown-content group-hover:block">
+                            <div class="dropdown-content hidden group-hover:block">
                                 <a class="nav-link font-medium" data-target="students-proto">Students</a>
                                 <a class="nav-link font-medium" data-target="schools-proto">Schools</a>
                                 <a class="nav-link font-medium" data-target="organizers-proto">Organizers</a>
+                                <a class="nav-link font-medium" data-target="content-licensing">Content & Licensing</a>
+                                <a class="nav-link font-medium" data-target="legality-ethical-ai">Legality & Ethical AI</a>
                             </div>
                         </div>
+                        <a class="nav-link font-medium" data-target="differentiation">Differentiation</a>
                     </nav>
                 </div>
             </div>
@@ -212,8 +242,11 @@
                         <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="students-proto">Students</a>
                         <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="schools-proto">Schools</a>
                         <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="organizers-proto">Organizers</a>
+                        <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="content-licensing">Content & Licensing</a>
+                        <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="legality-ethical-ai">Legality & Ethical AI</a>
                     </div>
                 </div>
+                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="differentiation">Differentiation</a>
             </nav>
         </div>
         <div id="overlay" class="overlay"></div>
@@ -380,6 +413,197 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Content Creation & Licensing Section -->
+            <section id="content-licensing" class="content-section">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Content Creation & Licensing: Ensuring Quality and Legality.</h1>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">Our commitment to academic integrity and legal compliance is paramount. QBank ensures all content is ethically sourced and legally sound through a multi-pronged strategy.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-1 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Our Question Creation Strategy</h3>
+                        <p class="text-gray-600 mb-4">To avoid copyright infringement and ensure high-quality, original content, QBank employs a dual-approach to question generation:</p>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-bold text-lg text-amber-700">AI-Powered Original Content Generation</h4>
+                                <p class="text-sm text-gray-600">Our proprietary AI algorithms, trained on vast datasets of mathematical concepts (not copyrighted questions), generate unique, pedagogically sound questions. These questions are designed to test specific learning objectives and difficulty levels, ensuring originality and relevance.</p>
+                                <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
+                                    <li>AI generates new problem structures and scenarios.</li>
+                                    <li>Focus on conceptual understanding, not memorization of specific questions.</li>
+                                    <li>Human experts review and validate AI-generated content for accuracy and quality.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-amber-700">Strategic Licensing Partnerships with Exam Boards</h4>
+                                <p class="text-sm text-gray-600">We offer exam boards a compelling value proposition: an economic and secure method to monetize their vast archives of past questions. QBank provides a platform for them to license their content, reaching a wider audience while ensuring their intellectual property is protected and generating new revenue streams.</p>
+                                <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
+                                    <li>Secure, encrypted access to licensed content.</li>
+                                    <li>Revenue sharing models for sustainable partnerships.</li>
+                                    <li>Enhanced brand visibility for exam boards.</li>
+                                    <li>Ensures access to official, high-stakes exam-style questions.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Legality & Ethical AI Section -->
+            <section id="legality-ethical-ai" class="content-section">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Legality & Ethical AI: Building Trust and Compliance.</h1>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">QBank is built on a foundation of robust legal compliance and a strong ethical AI framework, ensuring responsible innovation in education.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-1 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Legality & Compliance</h3>
+                        <p class="text-gray-600 mb-4">QBank adheres to the highest standards of legal compliance, particularly concerning intellectual property and data privacy:</p>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-bold text-lg text-amber-700">Intellectual Property (IP) Adherence</h4>
+                                <p class="text-sm text-gray-600">All questions generated by QBank's AI are original and do not replicate copyrighted material. For any third-party content, explicit licensing agreements will be in place, ensuring full compliance with copyright laws. Our legal team will meticulously vet all content sources and licensing terms.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-amber-700">Data Privacy & Security</h4>
+                                <p class="text-sm text-gray-600">We adhere to the strictest data protection regulations, including GDPR and other relevant educational data privacy acts (e.g., UK GDPR, Children's Code). Student data is anonymized where possible, encrypted, and used solely for educational personalization and platform improvement. Regular security audits ensure data integrity and protection against breaches.</p>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold mt-8 mb-4">Ethical AI Framework</h3>
+                        <p class="text-gray-600 mb-4">Our AI development follows a rigorous ethical framework, prioritizing fairness, transparency, and accountability in all aspects of the platform:</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
+                            <li>**Bias Mitigation:** We implement rigorous strategies to mitigate algorithmic bias through the use of diverse training data sets, continuous monitoring of outputs, and a human-in-the-loop validation process for generated content.</li>
+                            <li>**Transparency:** Our AI's adaptive learning paths and feedback mechanisms are designed to be understandable, providing insights into *why* certain content is presented.</li>
+                            <li>**Accountability:** We maintain clear accountability for AI-driven decisions and provide mechanisms for user feedback and intervention.</li>
+                            <li>**Guided Learning:** The platform's design principles emphasize "guided learning" and "deep understanding" over simply providing direct answers, ensuring that AI complements rather than replaces genuine cognitive effort and critical thinking development.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Competitive Differentiation Section -->
+            <section id="differentiation" class="content-section">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Beyond Competition: The Ultimate SaaS Solution.</h1>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">QBank is not just another EdTech tool; it's a comprehensive, integrated SaaS platform designed to encapsulate all market needs, setting us apart from the competition.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Our Unrivaled Differentiators</h3>
+                        <p class="text-gray-600 mb-4">QBank's strategic advantages position us as the definitive leader in AI-powered mathematical education:</p>
+                        <ul class="space-y-4">
+                            <li>
+                                <h4 class="font-bold text-lg text-amber-700">Sole Licenser & Official Collaborations</h4>
+                                <p class="text-sm text-gray-600">Our unique licensing model with exam boards provides exclusive access to official, high-stakes exam content, a critical advantage no competitor can match. These official collaborations establish QBank as the authoritative source for exam preparation.</p>
+                            </li>
+                            <li>
+                                <h4 class="font-bold text-lg text-amber-700">Deep Mathematical AI & Adaptive Learning</h4>
+                                <p class="text-sm text-gray-600">Unlike general AI tools, our engine is built on advanced mathematical principles and sophisticated AI to generate truly adaptive, pedagogically sound questions and learning paths, ensuring deeper understanding and mastery.</p>
+                            </li>
+                            <li>
+                                <h4 class="font-bold text-lg text-amber-700">End-to-End Solution for All Stakeholders</h4>
+                                <p class="text-sm text-gray-600">QBank is the only platform that seamlessly integrates personalized learning for students, robust assessment creation and analytics for schools, and secure competition management for organizers, all within a single, unified ecosystem.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">The Ultimate SaaS Service</h3>
+                        <p class="text-gray-600 mb-4">QBank is engineered as a comprehensive Software-as-a-Service (SaaS) solution, designed for maximum efficiency, scalability, and value across the entire educational market:</p>
+                        <ul class="space-y-4">
+                            <li>
+                                <h4 class="font-bold text-lg text-amber-700">Cloud-Native & Always Up-to-Date</h4>
+                                <p class="text-sm text-gray-600">Delivered via the cloud, QBank ensures constant access, automatic updates, and no maintenance burden for users or institutions. Always providing the latest features and security.</p>
+                            </li>
+                            <li>
+                                <h4 class="font-bold text-lg text-amber-700">Data-Driven Insights for Continuous Improvement</h4>
+                                <p class="text-sm text-gray-600">Our platform continuously collects and analyzes performance data, providing actionable insights for students, teachers, and organizers, and fueling our AI models for perpetual enhancement.</p>
+                            </li>
+                            <li>
+                                <h4 class="font-bold text-lg text-amber-700">Scalable & Secure Infrastructure</h4>
+                                <p class="text-sm text-gray-600">Built on a robust, secure, and scalable infrastructure, QBank can effortlessly support millions of users globally, ensuring reliability and data protection at every level.</p>
+                            </li>
+                            <li>
+                                <h4 class="font-bold text-lg text-amber-700">Cost-Effective & Predictable Pricing</h4>
+                                <p class="text-sm text-gray-600">Our subscription model offers predictable costs, making it a highly attractive and budget-friendly solution for schools and organizations compared to traditional, fragmented approaches.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card p-6 md:p-8 mt-8">
+                    <h3 class="text-2xl font-bold text-center mb-4">QBank vs. The Competition: A Feature Comparison</h3>
+                    <p class="text-center text-gray-600 mb-6">See how QBank's comprehensive features stack up against conventional online exam software and interactive learning platforms like Brilliant.org.</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg shadow-sm comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Differentiator</th>
+                                    <th>QBank</th>
+                                    <th>Khan Academy</th>
+                                    <th>Brilliant.org</th>
+                                    <th>Generic Online Exam Software</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>AI-Powered Content Generation</td>
+                                    <td><span class="tick">&#10003;</span></td>
+                                    <td><span class="cross">&#10006;</span></td>
+                                    <td><span class="cross">&#10006;</span></td>
+                                    <td><span class="cross">&#10006;</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Adaptive Learning Paths</td>
+                                    <td><span class="tick">&#10003;</span></td>
+                                    <td>Basic</td>
+                                    <td>Limited</td>
+                                    <td><span class="cross">&#10006;</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Vertical Specialization (Mathematics & Assessment)</td>
+                                    <td><span class="tick">&#10003;</span></td>
+                                    <td>Broad (K-12 to early college)</td>
+                                    <td>STEM (broader than math assessment)</td>
+                                    <td>Horizontal (any subject)</td>
+                                </tr>
+                                <tr>
+                                    <td>Comprehensive Assessment Management (for Schools/Organizers)</td>
+                                    <td><span class="tick">&#10003;</span></td>
+                                    <td>Limited (basic tools for teachers)</td>
+                                    <td><span class="cross">&#10006;</span></td>
+                                    <td><span class="tick">&#10003;</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Official Collaborations/Licensing Potential</td>
+                                    <td>Strong Potential</td>
+                                    <td><span class="cross">&#10006;</span></td>
+                                    <td><span class="cross">&#10006;</span></td>
+                                    <td><span class="cross">&#10006;</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Business Model (SaaS, Hybrid)</td>
+                                    <td>Hybrid SaaS (Freemium + B2B)</td>
+                                    <td>Freemium/Donation</td>
+                                    <td>Subscription</td>
+                                    <td>Subscription</td>
+                                </tr>
+                                <tr>
+                                    <td>Focus on Content Creation</td>
+                                    <td><span class="tick">&#10003;</span> (Generates content itself)</td>
+                                    <td><span class="cross">&#10006;</span> (curates/provides content)</td>
+                                    <td><span class="cross">&#10006;</span> (curates/provides content)</td>
+                                    <td><span class="cross">&#10006;</span> (administers existing content)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
 
             <!-- Students Prototype Section -->
             <section id="students-proto" class="content-section">
@@ -594,7 +818,7 @@
                     // Also set the parent "Our Solutions" link to active if a sub-link is clicked
                     const parentSolutionLink = document.getElementById('solutions-dropdown-toggle');
                     const sidebarParentSolutionLink = document.getElementById('sidebar-solutions-toggle');
-                    if (['students-proto', 'schools-proto', 'organizers-proto'].includes(target)) {
+                    if (['students-proto', 'schools-proto', 'organizers-proto', 'content-licensing', 'legality-ethical-ai'].includes(target)) {
                         if (parentSolutionLink) parentSolutionLink.classList.add('active');
                         if (sidebarParentSolutionLink) sidebarParentSolutionLink.classList.add('active');
                     } else {
