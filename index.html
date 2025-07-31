@@ -3,43 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QBank: The Investment Opportunity Prototype (Enhanced)</title>
+    <title>QBank: Revolutionizing Mathematics Education</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for data visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts for a clean, modern font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals with Subtle Accents -->
-    <!-- Application Structure Plan: A single-page, tabbed dashboard structure. The user navigates through key pitch sections (The Pitch, Market, Financials, The Ask) and new prototype sections (Students, Schools, Organizers, Content Creation & Licensing, Legality & Ethical AI) and a dedicated Differentiation tab using a clear top navigation on desktop and a responsive sidebar on mobile. This structure was chosen to mirror a logical presentation flow for the pitch, and then branch into detailed functional prototypes and critical business aspects for each user segment and investor concern, making it easy for a user to explore the platform's capabilities. Each section is a self-contained module with interactive charts and data points, designed for clarity and impact. The flow is linear for the pitch, then task-oriented for the prototype sections. -->
-    <!-- Visualization & Content Choices: 
-        - Market Growth: Report Info -> EdTech market size/growth data. Goal -> Show massive, undeniable growth. Viz -> Bar Chart (Chart.js). Interaction -> Hover for exact values. Justification -> Bar charts are excellent for comparing sizes of different but related market segments.
-        - Financial Projections: Report Info -> 5-year revenue/profit projections. Goal -> Demonstrate a clear path to profitability. Viz -> Line/Bar Combo Chart (Chart.js). Interaction -> Toggle between revenue, expenses, and profit views. Justification -> A combo chart effectively shows the relationship between revenue growth and profitability over time.
-        - Budget Allocation: Report Info -> First-year budget breakdown. Goal -> Show responsible and strategic use of funds. Viz -> Donut Chart (Chart.js). Interaction -> Hover to see percentage and amount for each category. Justification -> Donut charts are perfect for showing parts of a whole.
-        - User Segments (Intro): Report Info -> Student, School, Organizer benefits. Goal -> Clearly define target audiences. Viz -> Tabbed card layout (HTML/CSS/JS). Interaction -> Click tabs to reveal detailed benefits for each segment. Justification -> An interactive tab system organizes a lot of text cleanly without overwhelming the user.
-        - Student Progress: Report Info -> Mock student progress. Goal -> Show individual revision status. Viz -> Progress bars (HTML/CSS). Interaction -> Visual update of progress. Justification -> Progress bars are intuitive for showing completion status.
-        - Student Analytics (Schools): Report Info -> Mock student performance data. Goal -> Show teachers insights into class performance. Viz -> Bar chart (Chart.js). Interaction -> Hover for details. Justification -> Bar charts are good for comparing average scores.
-        - Exam Analytics (Organizers): Report Info -> Mock question difficulty data. Goal -> Show organizers insights into exam question performance. Viz -> Doughnut chart (Chart.js). Interaction -> Hover for details. Justification -> Doughnut charts are good for showing distribution of categories.
-        - Content Creation & Licensing / Legality & Ethical AI: Report Info -> Detailed textual explanations of strategies and differentiators. Goal -> Provide clear, comprehensive information on these critical aspects. Viz -> Structured text with headings and bullet points. Interaction -> Navigation via tabs/sidebar. Justification -> Textual explanation is most appropriate given the qualitative nature of this information and the lack of specific numerical data for charts.
-        - Competitive Differentiation: Report Info -> Textual explanation of differentiators. Goal -> Clearly articulate QBank's unique advantages. Viz -> Structured text with headings and bullet points, plus a comparison table (HTML/CSS) for a quick visual summary. Interaction -> Navigation via tabs/sidebar, and direct comparison in table. Justification -> Table provides a concise, at-a-glance comparison.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FDFBF8; /* Warm off-white */
-            color: #3A3A3A; /* Dark Gray */
+            background-color: #f8fafc; /* Lighter background to fit the new theme */
+            color: #1e293b; /* Darker text */
         }
-        .nav-link {
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
+        .bg-gradient-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+        .bg-gradient-section {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e0e7ff 100%);
+        }
+        /* Style for active navigation link */
         .nav-link.active {
-            color: #D97706; /* Amber-600 */
-            border-bottom-color: #D97706;
+            color: #6366f1; /* Indigo-500 */
+            border-bottom: 2px solid #6366f1;
         }
         .nav-link:hover {
-            color: #F59E0B; /* Amber-500 */
+            color: #818cf8; /* Indigo-400 */
         }
         .content-section {
             display: none;
@@ -47,57 +40,14 @@
         .content-section.active {
             display: block;
         }
-        .card {
-            background-color: #FFFFFF;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-        .btn-primary {
-            background-color: #D97706;
-            color: white;
-            transition: background-color 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #B45309;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
-        }
-        .kpi-card {
-            background-color: #FFFBEB; /* Amber-50 */
-            border-left: 4px solid #F59E0B; /* Amber-500 */
-        }
-        .tab-btn {
-            transition: all 0.3s ease;
-        }
-        .tab-btn.active {
-            background-color: #D97706;
-            color: white;
-        }
-        /* Sidebar styles */
+        /* Mobile sidebar styles */
         .sidebar {
             position: fixed;
             top: 0;
             left: -250px; /* Hidden by default */
             width: 250px;
             height: 100%;
-            background-color: #FFF;
+            background-color: #fff;
             box-shadow: 2px 0 5px rgba(0,0,0,0.2);
             transition: left 0.3s ease-in-out;
             z-index: 100;
@@ -119,36 +69,21 @@
         .overlay.active {
             display: block;
         }
-        .progress-bar-container {
-            width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 9999px;
-            overflow: hidden;
-            height: 8px;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background-color: #D97706;
-            border-radius: 9999px;
-            transition: width 0.5s ease-in-out;
-        }
-        /* Dropdown styles */
         .dropdown-content {
-            display: none; /* Hidden by default, shown by group-hover */
+            display: none;
             position: absolute;
-            background-color: #f9f9f9;
+            background-color: #f9fafb;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
             border-radius: 0.5rem;
-            overflow: hidden;
-            top: 100%; /* Position below the parent nav-link */
+            padding: 0.5rem 0;
+            top: 100%;
             left: 50%;
             transform: translateX(-50%);
-            padding: 0.5rem 0;
         }
         .dropdown-content a {
-            color: #3A3A3A;
+            color: #1f2937;
             padding: 0.75rem 1rem;
             text-decoration: none;
             display: block;
@@ -156,18 +91,17 @@
             transition: background-color 0.2s ease;
         }
         .dropdown-content a:hover {
-            background-color: #f1f1f1;
+            background-color: #e5e7eb;
         }
-        /* Removed .dropdown:hover .dropdown-content rule as it's now handled by group-hover:block */
+        .group:hover .dropdown-content {
+            display: block;
+        }
         .sidebar-dropdown-content {
             display: none;
             padding-left: 1rem;
         }
         .sidebar-dropdown-content.open {
             display: block;
-        }
-        .sidebar-dropdown-content a {
-            padding: 0.5rem 0.5rem 0.5rem 1.5rem; /* Indent sub-items */
         }
         .comparison-table th, .comparison-table td {
             padding: 0.75rem;
@@ -194,129 +128,209 @@
             font-weight: bold;
             font-size: 1.2em;
         }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-card {
+            background-color: #f0f4f8; /* Light gray to match the new theme */
+            border-left: 4px solid #6366f1; /* Indigo-500 */
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 9999px;
+            overflow: hidden;
+            height: 8px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #6366f1;
+            border-radius: 9999px;
+            transition: width 0.5s ease-in-out;
+        }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-gray-50 text-gray-800">
 
-    <div class="min-h-screen">
-        <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-16">
-                    <div class="flex items-center">
-                        <button id="menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-amber-500 mr-2">
-                            &#9776; <!-- Hamburger icon -->
-                        </button>
-                        <span class="text-2xl font-bold text-amber-700">QBank</span>
-                    </div>
-                    <nav class="hidden md:flex space-x-8">
-                        <a class="nav-link active font-medium" data-target="intro">The Pitch</a>
-                        <a class="nav-link font-medium" data-target="market">Market</a>
-                        <a class="nav-link font-medium" data-target="financials">Financials</a>
-                        <a class="nav-link font-medium" data-target="ask">The Ask</a>
-                        <div class="relative group">
-                            <a class="nav-link font-medium" href="#" id="solutions-dropdown-toggle">Our Solutions</a>
-                            <div class="dropdown-content hidden group-hover:block">
-                                <a class="nav-link font-medium" data-target="students-proto">Students</a>
-                                <a class="nav-link font-medium" data-target="schools-proto">Schools</a>
-                                <a class="nav-link font-medium" data-target="organizers-proto">Organizers</a>
-                                <a class="nav-link font-medium" data-target="content-licensing">Content & Licensing</a>
-                                <a class="nav-link font-medium" data-target="legality-ethical-ai">Legality & Ethical AI</a>
-                            </div>
+    <!-- Header & Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg py-4">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <button id="menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 mr-2">
+                        &#9776; <!-- Hamburger icon -->
+                    </button>
+                    <h1 class="text-2xl font-bold text-indigo-600">QBank</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a class="nav-link font-medium hover:text-indigo-500 transition duration-300 active" data-target="home">The Pitch</a>
+                    <a class="nav-link font-medium hover:text-indigo-500 transition duration-300" data-target="market">Market</a>
+                    <a class="nav-link font-medium hover:text-indigo-500 transition duration-300" data-target="model">Financials</a>
+                    <div class="relative group">
+                        <a class="nav-link font-medium hover:text-indigo-500 transition duration-300" href="#" id="solutions-dropdown-toggle">Our Solutions</a>
+                        <div class="dropdown-content hidden group-hover:block">
+                            <a class="nav-link font-medium hover:bg-gray-100" data-target="students-proto">Students</a>
+                            <a class="nav-link font-medium hover:bg-gray-100" data-target="schools-proto">Schools</a>
+                            <a class="nav-link font-medium hover:bg-gray-100" data-target="organizers-proto">Organizers</a>
+                            <a class="nav-link font-medium hover:bg-gray-100" data-target="content-licensing">Content & Licensing</a>
+                            <a class="nav-link font-medium hover:bg-gray-100" data-target="legality-ethical-ai">Legality & Ethical AI</a>
                         </div>
-                        <a class="nav-link font-medium" data-target="differentiation">Differentiation</a>
-                    </nav>
+                    </div>
+                    <a class="nav-link font-medium hover:text-indigo-500 transition duration-300" data-target="differentiation">Differentiation</a>
+                    <a class="nav-link font-medium hover:text-indigo-500 transition duration-300" data-target="contact">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar for mobile -->
+    <div id="sidebar" class="sidebar">
+        <nav class="flex flex-col p-4 space-y-2">
+            <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md active" data-target="home">The Pitch</a>
+            <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="market">Market</a>
+            <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="model">Financials</a>
+            <div class="relative">
+                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md flex justify-between items-center" href="#" id="sidebar-solutions-toggle">
+                    <span>Our Solutions</span>
+                    <i class="fas fa-caret-down text-gray-400"></i>
+                </a>
+                <div class="sidebar-dropdown-content" id="sidebar-solutions-content">
+                    <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md pl-8" data-target="students-proto">Students</a>
+                    <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md pl-8" data-target="schools-proto">Schools</a>
+                    <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md pl-8" data-target="organizers-proto">Organizers</a>
+                    <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md pl-8" data-target="content-licensing">Content & Licensing</a>
+                    <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md pl-8" data-target="legality-ethical-ai">Legality & Ethical AI</a>
                 </div>
             </div>
-        </header>
+            <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="differentiation">Differentiation</a>
+            <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="contact">Contact</a>
+        </nav>
+    </div>
+    <div id="overlay" class="overlay"></div>
 
-        <!-- Sidebar for mobile -->
-        <div id="sidebar" class="sidebar">
-            <nav class="flex flex-col p-4 space-y-2">
-                <a class="nav-link sidebar-link active font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="intro">The Pitch</a>
-                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="market">Market</a>
-                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="financials">Financials</a>
-                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="ask">The Ask</a>
-                <div class="relative">
-                    <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" href="#" id="sidebar-solutions-toggle">Our Solutions &#9662;</a>
-                    <div class="sidebar-dropdown-content" id="sidebar-solutions-content">
-                        <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="students-proto">Students</a>
-                        <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="schools-proto">Schools</a>
-                        <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="organizers-proto">Organizers</a>
-                        <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="content-licensing">Content & Licensing</a>
-                        <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="legality-ethical-ai">Legality & Ethical AI</a>
+    <main class="pt-16">
+        <!-- Slide 1: Title Slide (Hero Section) -->
+        <section id="home" class="min-h-screen flex items-center justify-center text-center text-white bg-gradient-hero">
+            <div class="container mx-auto px-6 py-20">
+                <div class="flex flex-col items-center">
+                    <h2 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight mb-4">
+                        QBank
+                    </h2>
+                    <h3 class="text-2xl md:text-3xl font-light max-w-3xl mb-8 opacity-90">
+                        A Strategic Plan for Revolutionising Mathematics Education
+                    </h3>
+                    <p class="text-xl max-w-4xl mb-12">
+                        An AI-powered platform for adaptive assessment and personalized learning.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#solution" class="bg-white text-indigo-600 font-bold px-8 py-4 rounded-full shadow-lg hover:bg-gray-100 transition duration-300">
+                            Discover Our Solution
+                        </a>
                     </div>
                 </div>
-                <a class="nav-link sidebar-link font-medium text-gray-700 hover:bg-gray-50 p-2 rounded-md" data-target="differentiation">Differentiation</a>
-            </nav>
-        </div>
-        <div id="overlay" class="overlay"></div>
+            </div>
+        </section>
 
-        <main class="container mx-auto p-4 sm:p-6 lg:p-8">
-            <!-- Introduction / The Pitch Section -->
-            <section id="intro" class="content-section active">
-                <div class="text-center mb-12">
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Revolutionizing Mathematics Education.</h1>
-                    <p class="max-w-3xl mx-auto text-lg text-gray-600">We're building an AI-powered platform to solve the biggest challenges in math learning and assessment for students, schools, and competitions. This is more than an EdTech tool; it's a fundamental shift in how we teach and master mathematics.</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8 items-center mb-16">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-4">The Problem: A Broken System</h2>
-                        <p class="text-gray-600 mb-4">Today's "one-size-fits-all" math education leaves students disengaged and teachers buried in administrative work. Creating varied, high-quality assessments is a manual, time-consuming nightmare. This inefficiency creates a massive gap in learning and equity.</p>
-                        <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <span class="text-amber-600 font-bold mr-3">→</span>
-                                <div><strong class="text-gray-800">Student Disengagement:</strong> Standardized teaching fails to address diverse learning paces.</div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-amber-600 font-bold mr-3">→</span>
-                                <div><strong class="text-gray-800">Teacher Burnout:</strong> Endless hours spent on creating and grading papers, not teaching.</div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-amber-600 font-bold mr-3">→</span>
-                                <div><strong class="text-gray-800">Assessment Inequity:</strong> Lack of tools for fair, secure, and varied large-scale testing.</div>
-                            </li>
-                        </ul>
+        <!-- Slide 2: The Problem -->
+        <section id="problem" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    The Problem: The "One-Size-Fits-All" Flaw in Education
+                </h2>
+                <div class="grid md:grid-cols-3 gap-12">
+                    <!-- Problem 1 Card -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition duration-300">
+                        <div class="text-5xl text-red-500 mb-6"><i class="fas fa-user-times"></i></div>
+                        <h3 class="text-xl font-bold mb-4">Lack of Personalisation</h3>
+                        <p class="text-gray-600">
+                            Traditional education fails to adapt to individual student's learning styles and pace, leading to disengagement and frustration.
+                        </p>
                     </div>
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-bold mb-4 text-center">Our Solution: The QBank Engine</h3>
-                        <p class="text-gray-600 mb-6 text-center">QBank is an intelligent, adaptive platform that serves everyone in the education ecosystem. We use advanced AI and mathematical principles to deliver a superior experience.</p>
-                        
-                        <div class="bg-gray-100 rounded-lg p-4 mb-4">
-                            <div class="flex justify-center space-x-2 mb-4">
-                                <button class="tab-btn active px-4 py-2 text-sm font-semibold rounded-md" data-tab="students">For Students</button>
-                                <button class="tab-btn px-4 py-2 text-sm font-semibold rounded-md" data-tab="schools">For Schools</button>
-                                <button class="tab-btn px-4 py-2 text-sm font-semibold rounded-md" data-tab="competitions">For Organizers</button>
-                            </div>
-                            <div id="tab-content">
-                                <div class="tab-pane active" id="students-content">
-                                    <h4 class="font-bold text-lg mb-2">Personalized Mastery</h4>
-                                    <p class="text-sm text-gray-600">Adaptive quizzes, instant feedback, and performance analytics to turn weaknesses into strengths.</p>
-                                </div>
-                                <div class="tab-pane hidden" id="schools-content">
-                                    <h4 class="font-bold text-lg mb-2">Automated Excellence</h4>
-                                    <p class="text-sm text-gray-600">Generate curriculum-aligned exams in seconds, track class-wide progress, and free up teacher time.</p>
-                                </div>
-                                <div class="tab-pane hidden" id="competitions-content">
-                                    <h4 class="font-bold text-lg mb-2">Competition Integrity</h4>
-                                    <p class="text-sm text-gray-600">Securely create unique, high-quality question sets for fair and robust competitions.</p>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Problem 2 Card -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition duration-300">
+                        <div class="text-5xl text-yellow-500 mb-6"><i class="fas fa-clock"></i></div>
+                        <h3 class="text-xl font-bold mb-4">Educator Burden</h3>
+                        <p class="text-gray-600">
+                            Teachers are burdened with manual tasks like creating and grading assessments, diverting time from meaningful student interaction.
+                        </p>
+                    </div>
+                    <!-- Problem 3 Card -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition duration-300">
+                        <div class="text-5xl text-blue-500 mb-6"><i class="fas fa-chart-line"></i></div>
+                        <h3 class="text-xl font-bold mb-4">Inconsistent Outcomes</h3>
+                        <p class="text-gray-600">
+                            The current system results in inconsistent learning outcomes and contributes to a widening educational equity gap.
+                        </p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Market Section -->
-            <section id="market" class="content-section">
-                <div class="text-center mb-12">
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">An Explosive, Multi-Billion Dollar Market.</h1>
-                    <p class="max-w-3xl mx-auto text-lg text-gray-600">We are positioned at the intersection of three booming markets: EdTech, AI in Education, and Online Assessment. The growth is not just strong; it's accelerating.</p>
+        <!-- Slide 3: Our Solution -->
+        <section id="solution" class="py-20 bg-gradient-section">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    Our Solution: An Intelligent, Adaptive Platform
+                </h2>
+                <div class="grid md:grid-cols-3 gap-12">
+                    <!-- Student Card -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-indigo-500 transform hover:scale-105 transition duration-300">
+                        <div class="text-6xl text-indigo-600 mb-6"><i class="fas fa-graduation-cap"></i></div>
+                        <h3 class="text-2xl font-bold mb-2">For Students</h3>
+                        <p class="text-gray-600">
+                            Adaptive quizzes and detailed performance analytics identify knowledge gaps and ensure mastery.
+                        </p>
+                    </div>
+                    <!-- Schools Card -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-purple-500 transform hover:scale-105 transition duration-300">
+                        <div class="text-6xl text-purple-600 mb-6"><i class="fas fa-school"></i></div>
+                        <h3 class="text-2xl font-bold mb-2">For Schools</h3>
+                        <p class="text-gray-600">
+                            Automates the creation of custom, curriculum-aligned question papers, freeing up teacher time.
+                        </p>
+                    </div>
+                    <!-- Competition Organizers Card -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-pink-500 transform hover:scale-105 transition duration-300">
+                        <div class="text-6xl text-pink-600 mb-6"><i class="fas fa-medal"></i></div>
+                        <h3 class="text-2xl font-bold mb-2">For Competition Organizers</h3>
+                        <p class="text-gray-600">
+                            Provides a secure environment for generating unique, randomised question sets to ensure fairness.
+                        </p>
+                    </div>
                 </div>
+            </div>
+        </section>
 
+        <!-- Slide 4: The Market Opportunity -->
+        <section id="market" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    The Perfect Storm: A Multi-Billion Dollar Market Opportunity
+                </h2>
                 <div class="card p-6 md:p-8 mb-12">
-                     <h3 class="text-2xl font-bold text-center mb-2">EdTech Market Growth Projections (USD Billions)</h3>
-                     <p class="text-center text-gray-500 mb-6">This chart visualizes the massive growth projected across key sectors QBank operates in. Hover over the bars to see the projected market size for 2033-2037.</p>
+                    <h3 class="text-2xl font-bold text-center mb-2">EdTech Market Growth Projections (USD Billions)</h3>
+                    <p class="text-center text-gray-500 mb-6">This chart visualizes the massive growth projected across key sectors QBank operates in. Hover over the bars to see the projected market size for 2033-2037.</p>
                     <div class="chart-container">
                         <canvas id="marketGrowthChart"></canvas>
                     </div>
@@ -325,32 +339,32 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="kpi-card p-5 rounded-lg">
                         <h4 class="text-sm font-semibold text-gray-500">Global EdTech CAGR</h4>
-                        <p class="text-3xl font-bold text-amber-800">14.2%</p>
+                        <p class="text-3xl font-bold text-indigo-800">14.2%</p>
                         <p class="text-xs text-gray-500">Projected to reach $646.8B by 2037</p>
                     </div>
                     <div class="kpi-card p-5 rounded-lg">
                         <h4 class="text-sm font-semibold text-gray-500">K-12 EdTech CAGR</h4>
-                        <p class="text-3xl font-bold text-amber-800">24.5%</p>
+                        <p class="text-3xl font-bold text-indigo-800">24.5%</p>
                         <p class="text-xs text-gray-500">Projected to reach $209.8B by 2033</p>
                     </div>
                     <div class="kpi-card p-5 rounded-lg">
                         <h4 class="text-sm font-semibold text-gray-500">AI in Education CAGR</h4>
-                        <p class="text-3xl font-bold text-amber-800">36.02%</p>
+                        <p class="text-3xl font-bold text-indigo-800">36.02%</p>
                         <p class="text-xs text-gray-500">Projected to reach $112.3B by 2034</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Financials Section -->
-            <section id="financials" class="content-section">
-                <div class="text-center mb-12">
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">A Clear Path to Profitability.</h1>
-                    <p class="max-w-3xl mx-auto text-lg text-gray-600">Our hybrid B2C freemium and B2B subscription model ensures diversified revenue streams, rapid user acquisition, and long-term, predictable income.</p>
-                </div>
-                
+        <!-- Slide 5: Business Model & Investment -->
+        <section id="model" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    A Clear Path to Profitability
+                </h2>
                 <div class="grid lg:grid-cols-5 gap-8">
                     <div class="lg:col-span-3 card p-6 md:p-8">
-                        <h3 class="text-2xl font-bold text-center mb-2">5-Year Financial Projections (GBP Millions)</h3>
+                        <h3 class="text-2xl font-bold text-center mb-2">5-Year Financial Projections (£ Millions)</h3>
                         <p class="text-center text-gray-500 mb-6">This chart illustrates our projected revenue growth against operating expenses, showing a clear path to profitability by Year 3.</p>
                         <div class="chart-container" style="height: 450px; max-height: 500px;">
                             <canvas id="financialProjectionsChart"></canvas>
@@ -360,183 +374,83 @@
                         <h3 class="text-2xl font-bold text-center mb-4">Monetization Strategy</h3>
                         <div class="space-y-6">
                             <div>
-                                <h4 class="font-bold text-lg text-amber-700">B2C Model</h4>
+                                <h4 class="font-bold text-lg text-indigo-700">B2C Model</h4>
                                 <p class="text-sm text-gray-600"><strong class="text-gray-800">Freemium:</strong> Basic access to drive user growth.</p>
                                 <p class="text-sm text-gray-600"><strong class="text-gray-800">Premium:</strong> Paid subscriptions for advanced AI features and analytics.</p>
                             </div>
                             <div>
-                                <h4 class="font-bold text-lg text-amber-700">B2B Model</h4>
+                                <h4 class="font-bold text-lg text-indigo-700">B2B Model</h4>
                                 <p class="text-sm text-gray-600"><strong class="text-gray-800">Subscriptions:</strong> Tiered licensing for schools based on user count.</p>
                                 <p class="text-sm text-gray-600"><strong class="text-gray-800">Event-based:</strong> Custom packages for competition organizers.</p>
                             </div>
-                            <div class="bg-amber-50 border-l-4 border-amber-500 text-amber-700 p-4 rounded-md">
+                            <div class="bg-indigo-50 border-l-4 border-indigo-500 text-indigo-700 p-4 rounded-md">
                                 <p class="font-semibold">This hybrid approach mitigates risk, builds a strong user base, and secures high-value, recurring revenue from institutional clients.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            
-            <!-- The Ask Section -->
-            <section id="ask" class="content-section">
-                <div class="text-center mb-12">
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Join Us in Building the Future.</h1>
-                    <p class="max-w-3xl mx-auto text-lg text-gray-600">We are seeking a strategic investment to accelerate development, capture the market, and scale our impact globally. Your capital will be deployed efficiently to achieve key milestones and generate significant returns.</p>
-                </div>
+            </div>
+        </section>
 
-                <div class="grid lg:grid-cols-2 gap-8 items-start">
-                    <div class="card p-6 md:p-8">
-                        <h3 class="text-2xl font-bold text-center mb-2">First Year Budget Allocation</h3>
-                        <p class="text-center text-gray-500 mb-6">We have a detailed plan to allocate the £8M budget. The majority is dedicated to attracting top-tier talent, the engine of our innovation.</p>
-                        <div class="chart-container" style="height: 350px;">
-                            <canvas id="budgetAllocationChart"></canvas>
-                        </div>
+        <!-- Slide 6: Our Competitive Moat -->
+        <section id="moat" class="py-20 bg-gradient-hero text-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16">
+                    Our Competitive Moat
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 text-center">
+                    <!-- QBank Side -->
+                    <div class="bg-white text-gray-800 p-8 rounded-2xl shadow-xl flex flex-col items-center">
+                        <div class="text-7xl text-indigo-600 mb-6"><i class="fas fa-shield-halved"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">QBank's Advantage</h3>
+                        <ul class="list-none space-y-4 text-left w-full">
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-green-500"></i>
+                                <span><strong class="text-indigo-600">Vertical Specialisation:</strong> Deep focus on intelligent **mathematical assessment**.</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-green-500"></i>
+                                <span><strong class="text-indigo-600">Proprietary Technology:</strong> A unique **Knowledge Graph** and custom AI algorithms.</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-green-500"></i>
+                                <span><strong class="text-indigo-600">First-Mover Advantage:</strong> Leading in a crucial, difficult-to-replicate niche.</span>
+                            </li>
+                        </ul>
                     </div>
-
-                    <div class="space-y-6">
-                        <div class="card p-6">
-                            <h3 class="text-3xl font-bold text-amber-700">The Ask: £8 Million</h3>
-                            <p class="text-gray-600 mt-2">This investment will provide a 24-month runway to achieve the following:</p>
-                        </div>
-                        <div class="card p-6">
-                            <h4 class="font-bold text-lg mb-3">Key Milestones (Year 1)</h4>
-                            <ul class="space-y-3">
-                                <li class="flex items-start"><span class="text-amber-600 font-bold mr-3">✓</span><div><strong class="text-gray-800">User Base:</strong> Acquire 500,000+ freemium users.</div></li>
-                                <li class="flex items-start"><span class="text-amber-600 font-bold mr-3">✓</span><div><strong class="text-gray-800">B2B Pilots:</strong> Onboard 20 schools & 5 competition organizers.</div></li>
-                                <li class="flex items-start"><span class="text-amber-600 font-bold mr-3">✓</span><div><strong class="text-gray-800">Product:</strong> Launch premium features and achieve a Net Promoter Score of +50.</div></li>
-                                <li class="flex items-start"><span class="text-amber-600 font-bold mr-3">✓</span><div><strong class="text-gray-800">Revenue:</strong> Secure £1M in initial revenue from early adopters and B2B contracts.</div></li>
-                            </ul>
-                        </div>
-                         <div class="text-center">
-                            <button class="btn-primary font-bold py-3 px-8 rounded-full text-lg">Invest in QBank</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Content Creation & Licensing Section -->
-            <section id="content-licensing" class="content-section">
-                <div class="text-center mb-12">
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Content Creation & Licensing: Ensuring Quality and Legality.</h1>
-                    <p class="max-w-3xl mx-auto text-lg text-gray-600">Our commitment to academic integrity and legal compliance is paramount. QBank ensures all content is ethically sourced and legally sound through a multi-pronged strategy.</p>
-                </div>
-
-                <div class="grid lg:grid-cols-1 gap-8">
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-bold mb-4">Our Question Creation Strategy</h3>
-                        <p class="text-gray-600 mb-4">To avoid copyright infringement and ensure high-quality, original content, QBank employs a dual-approach to question generation:</p>
-                        <div class="space-y-6">
-                            <div>
-                                <h4 class="font-bold text-lg text-amber-700">AI-Powered Original Content Generation</h4>
-                                <p class="text-sm text-gray-600">Our proprietary AI algorithms, trained on vast datasets of mathematical concepts (not copyrighted questions), generate unique, pedagogically sound questions. These questions are designed to test specific learning objectives and difficulty levels, ensuring originality and relevance.</p>
-                                <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
-                                    <li>AI generates new problem structures and scenarios.</li>
-                                    <li>Focus on conceptual understanding, not memorization of specific questions.</li>
-                                    <li>Human experts review and validate AI-generated content for accuracy and quality.</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg text-amber-700">Strategic Licensing Partnerships with Exam Boards</h4>
-                                <p class="text-sm text-gray-600">We offer exam boards a compelling value proposition: an economic and secure method to monetize their vast archives of past questions. QBank provides a platform for them to license their content, reaching a wider audience while ensuring their intellectual property is protected and generating new revenue streams.</p>
-                                <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
-                                    <li>Secure, encrypted access to licensed content.</li>
-                                    <li>Revenue sharing models for sustainable partnerships.</li>
-                                    <li>Enhanced brand visibility for exam boards.</li>
-                                    <li>Ensures access to official, high-stakes exam-style questions.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Legality & Ethical AI Section -->
-            <section id="legality-ethical-ai" class="content-section">
-                <div class="text-center mb-12">
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Legality & Ethical AI: Building Trust and Compliance.</h1>
-                    <p class="max-w-3xl mx-auto text-lg text-gray-600">QBank is built on a foundation of robust legal compliance and a strong ethical AI framework, ensuring responsible innovation in education.</p>
-                </div>
-
-                <div class="grid lg:grid-cols-1 gap-8">
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-bold mb-4">Legality & Compliance</h3>
-                        <p class="text-gray-600 mb-4">QBank adheres to the highest standards of legal compliance, particularly concerning intellectual property and data privacy:</p>
-                        <div class="space-y-6">
-                            <div>
-                                <h4 class="font-bold text-lg text-amber-700">Intellectual Property (IP) Adherence</h4>
-                                <p class="text-sm text-gray-600">All questions generated by QBank's AI are original and do not replicate copyrighted material. For any third-party content, explicit licensing agreements will be in place, ensuring full compliance with copyright laws. Our legal team will meticulously vet all content sources and licensing terms.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg text-amber-700">Data Privacy & Security</h4>
-                                <p class="text-sm text-gray-600">We adhere to the strictest data protection regulations, including GDPR and other relevant educational data privacy acts (e.g., UK GDPR, Children's Code). Student data is anonymized where possible, encrypted, and used solely for educational personalization and platform improvement. Regular security audits ensure data integrity and protection against breaches.</p>
-                            </div>
-                        </div>
-                        <h3 class="text-2xl font-bold mt-8 mb-4">Ethical AI Framework</h3>
-                        <p class="text-gray-600 mb-4">Our AI development follows a rigorous ethical framework, prioritizing fairness, transparency, and accountability in all aspects of the platform:</p>
-                        <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
-                            <li>**Bias Mitigation:** We implement rigorous strategies to mitigate algorithmic bias through the use of diverse training data sets, continuous monitoring of outputs, and a human-in-the-loop validation process for generated content.</li>
-                            <li>**Transparency:** Our AI's adaptive learning paths and feedback mechanisms are designed to be understandable, providing insights into *why* certain content is presented.</li>
-                            <li>**Accountability:** We maintain clear accountability for AI-driven decisions and provide mechanisms for user feedback and intervention.</li>
-                            <li>**Guided Learning:** The platform's design principles emphasize "guided learning" and "deep understanding" over simply providing direct answers, ensuring that AI complements rather than replaces genuine cognitive effort and critical thinking development.</li>
+                    <!-- Competitors Side -->
+                    <div class="bg-gray-800 text-white p-8 rounded-2xl shadow-xl flex flex-col items-center">
+                        <div class="text-7xl text-red-500 mb-6"><i class="fas fa-xmark-circle"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">Competitors' Limitations</h3>
+                        <ul class="list-none space-y-4 text-left w-full">
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-times-circle text-red-500"></i>
+                                <span><strong class="text-red-500">Generic Platforms:</strong> Broad content, but lack deep specialisation in assessment.</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-times-circle text-red-500"></i>
+                                <span><strong class="text-red-500">Easy to Replicate:</strong> Lack the complex, proprietary algorithms we've developed.</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-times-circle text-red-500"></i>
+                                <span><strong class="text-red-500">Inefficient Workflows:</strong> Do not automate question generation for educators.</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Competitive Differentiation Section -->
-            <section id="differentiation" class="content-section">
+        <!-- Competitive Differentiation Section -->
+        <section id="differentiation" class="py-20">
+            <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Beyond Competition: The Ultimate SaaS Solution.</h1>
                     <p class="max-w-3xl mx-auto text-lg text-gray-600">QBank is not just another EdTech tool; it's a comprehensive, integrated SaaS platform designed to encapsulate all market needs, setting us apart from the competition.</p>
                 </div>
-
-                <div class="grid lg:grid-cols-2 gap-8">
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-bold mb-4">Our Unrivaled Differentiators</h3>
-                        <p class="text-gray-600 mb-4">QBank's strategic advantages position us as the definitive leader in AI-powered mathematical education:</p>
-                        <ul class="space-y-4">
-                            <li>
-                                <h4 class="font-bold text-lg text-amber-700">Sole Licenser & Official Collaborations</h4>
-                                <p class="text-sm text-gray-600">Our unique licensing model with exam boards provides exclusive access to official, high-stakes exam content, a critical advantage no competitor can match. These official collaborations establish QBank as the authoritative source for exam preparation.</p>
-                            </li>
-                            <li>
-                                <h4 class="font-bold text-lg text-amber-700">Deep Mathematical AI & Adaptive Learning</h4>
-                                <p class="text-sm text-gray-600">Unlike general AI tools, our engine is built on advanced mathematical principles and sophisticated AI to generate truly adaptive, pedagogically sound questions and learning paths, ensuring deeper understanding and mastery.</p>
-                            </li>
-                            <li>
-                                <h4 class="font-bold text-lg text-amber-700">End-to-End Solution for All Stakeholders</h4>
-                                <p class="text-sm text-gray-600">QBank is the only platform that seamlessly integrates personalized learning for students, robust assessment creation and analytics for schools, and secure competition management for organizers, all within a single, unified ecosystem.</p>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="card p-6">
-                        <h3 class="text-2xl font-bold mb-4">The Ultimate SaaS Service</h3>
-                        <p class="text-gray-600 mb-4">QBank is engineered as a comprehensive Software-as-a-Service (SaaS) solution, designed for maximum efficiency, scalability, and value across the entire educational market:</p>
-                        <ul class="space-y-4">
-                            <li>
-                                <h4 class="font-bold text-lg text-amber-700">Cloud-Native & Always Up-to-Date</h4>
-                                <p class="text-sm text-gray-600">Delivered via the cloud, QBank ensures constant access, automatic updates, and no maintenance burden for users or institutions. Always providing the latest features and security.</p>
-                            </li>
-                            <li>
-                                <h4 class="font-bold text-lg text-amber-700">Data-Driven Insights for Continuous Improvement</h4>
-                                <p class="text-sm text-gray-600">Our platform continuously collects and analyzes performance data, providing actionable insights for students, teachers, and organizers, and fueling our AI models for perpetual enhancement.</p>
-                            </li>
-                            <li>
-                                <h4 class="font-bold text-lg text-amber-700">Scalable & Secure Infrastructure</h4>
-                                <p class="text-sm text-gray-600">Built on a robust, secure, and scalable infrastructure, QBank can effortlessly support millions of users globally, ensuring reliability and data protection at every level.</p>
-                            </li>
-                            <li>
-                                <h4 class="font-bold text-lg text-amber-700">Cost-Effective & Predictable Pricing</h4>
-                                <p class="text-sm text-gray-600">Our subscription model offers predictable costs, making it a highly attractive and budget-friendly solution for schools and organizations compared to traditional, fragmented approaches.</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
                 <div class="card p-6 md:p-8 mt-8">
                     <h3 class="text-2xl font-bold text-center mb-4">QBank vs. The Competition: A Feature Comparison</h3>
-                    <p class="text-center text-gray-600 mb-6">See how QBank's comprehensive features stack up against conventional online exam software and interactive learning platforms like Brilliant.org.</p>
+                    <p class="text-center text-gray-600 mb-6">See how QBank's comprehensive features stack up against conventional online exam software and interactive learning platforms.</p>
                     <div class="overflow-x-auto">
                         <table class="min-w-full bg-white rounded-lg shadow-sm comparison-table">
                             <thead>
@@ -602,16 +516,51 @@
                         </table>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
+        <!-- Slide 7: Societal Impact -->
+        <section id="impact" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-16">
+                    Beyond Business: A Profound Societal Impact
+                </h2>
+                <div class="grid md:grid-cols-3 gap-12">
+                    <!-- Impact 1 Card -->
+                    <div class="flex flex-col items-center p-8 bg-white rounded-2xl shadow-lg transform hover:scale-105 transition duration-300">
+                        <div class="text-6xl text-indigo-600 mb-6"><i class="fas fa-brain"></i></div>
+                        <h3 class="text-2xl font-bold mb-2">Critical Thinking</h3>
+                        <p class="text-gray-600">
+                            We enhance mathematical literacy and foster critical thinking skills for the next generation.
+                        </p>
+                    </div>
+                    <!-- Impact 2 Card -->
+                    <div class="flex flex-col items-center p-8 bg-white rounded-2xl shadow-lg transform hover:scale-105 transition duration-300">
+                        <div class="text-6xl text-purple-600 mb-6"><i class="fas fa-handshake"></i></div>
+                        <h3 class="text-2xl font-bold mb-2">Educational Equity</h3>
+                        <p class="text-gray-600">
+                            By providing personalised and adaptive learning, we promote equity on a global scale.
+                        </p>
+                    </div>
+                    <!-- Impact 3 Card -->
+                    <div class="flex flex-col items-center p-8 bg-white rounded-2xl shadow-lg transform hover:scale-105 transition duration-300">
+                        <div class="text-6xl text-pink-600 mb-6"><i class="fas fa-heart"></i></div>
+                        <h3 class="text-2xl font-bold mb-2">Educator Support</h3>
+                        <p class="text-gray-600">
+                            We free up educators from administrative tasks to focus on meaningful mentorship and emotional support.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <!-- Students Prototype Section -->
-            <section id="students-proto" class="content-section">
+        <!-- Students Prototype Section -->
+        <section id="students-proto" class="py-20 bg-gradient-section">
+            <div class="container mx-auto p-4 sm:p-6 lg:p-8">
                 <div class="text-center mb-12">
                     <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">QBank for Students: Your Path to Mastery.</h1>
                     <p class="max-w-3xl mx-auto text-lg text-gray-600">Dive into personalized revision, practice mock exams, and stay on top of your homework. QBank adapts to your learning style, helping you excel in mathematics.</p>
                 </div>
-
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="card p-6">
                         <h3 class="text-2xl font-bold mb-4">Revise for Exams</h3>
@@ -620,33 +569,31 @@
                             <!-- Revision items will be injected here by JS -->
                         </ul>
                     </div>
-
                     <div class="card p-6">
                         <h3 class="text-2xl font-bold mb-4">Mock Exams</h3>
                         <p class="text-gray-600 mb-4">Prepare for your big tests with full-length, timed mock exams. Get instant scores and detailed performance breakdowns.</p>
                         <ul class="space-y-3">
                             <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
                                 <span class="font-medium text-gray-800">Algebra Mid-Term Mock</span>
-                                <button class="btn-primary text-sm px-4 py-2 rounded-md">Start Exam</button>
+                                <button class="bg-indigo-600 text-white font-bold px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300">Start Exam</button>
                             </li>
                             <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
                                 <span class="font-medium text-gray-800">Geometry Final Mock</span>
-                                <button class="btn-primary text-sm px-4 py-2 rounded-md">Start Exam</button>
+                                <button class="bg-indigo-600 text-white font-bold px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300">Start Exam</button>
                             </li>
                             <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
                                 <span class="font-medium text-gray-800">Pre-Calculus Unit 3 Test</span>
-                                <button class="btn-primary text-sm px-4 py-2 rounded-md">Start Exam</button>
+                                <button class="bg-indigo-600 text-white font-bold px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300">Start Exam</button>
                             </li>
                         </ul>
                     </div>
-
                     <div class="card p-6">
                         <h3 class="text-2xl font-bold mb-4">Homework</h3>
                         <p class="text-gray-600 mb-4">View and complete assignments set by your teachers. All your homework in one place.</p>
                         <ul class="space-y-3">
                             <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
                                 <span class="font-medium text-gray-800">Chapter 5 Review (Due: 28/07)</span>
-                                <span class="text-sm text-amber-600 font-semibold">Assigned</span>
+                                <span class="text-sm text-indigo-600 font-semibold">Assigned</span>
                             </li>
                             <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
                                 <span class="font-medium text-gray-800">Quadratic Equations Practice (Completed)</span>
@@ -654,20 +601,21 @@
                             </li>
                             <li class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
                                 <span class="font-medium text-gray-800">Trigonometry Basics (Due: 05/08)</span>
-                                <span class="text-sm text-amber-600 font-semibold">Assigned</span>
+                                <span class="text-sm text-indigo-600 font-semibold">Assigned</span>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Schools Prototype Section -->
-            <section id="schools-proto" class="content-section">
+        <!-- Schools Prototype Section -->
+        <section id="schools-proto" class="py-20 bg-gray-100">
+            <div class="container mx-auto p-4 sm:p-6 lg:p-8">
                 <div class="text-center mb-12">
                     <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">QBank for Schools: Empowering Educators.</h1>
                     <p class="max-w-3xl mx-auto text-lg text-gray-600">Streamline question creation, track mock exams, and gain deep insights into student performance with powerful analytics.</p>
                 </div>
-
                 <div class="grid lg:grid-cols-2 gap-8">
                     <div class="card p-6">
                         <h3 class="text-2xl font-bold mb-4">Create Questions for Exams</h3>
@@ -675,24 +623,23 @@
                         <div class="space-y-4">
                             <div>
                                 <label for="question-text" class="block text-sm font-medium text-gray-700">Question Text</label>
-                                <textarea id="question-text" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2"></textarea>
+                                <textarea id="question-text" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
                             </div>
                             <div>
                                 <label for="question-topic" class="block text-sm font-medium text-gray-700">Topic</label>
-                                <input type="text" id="question-topic" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2">
+                                <input type="text" id="question-topic" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
                             </div>
                             <div>
                                 <label for="question-difficulty" class="block text-sm font-medium text-gray-700">Difficulty</label>
-                                <select id="question-difficulty" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2">
+                                <select id="question-difficulty" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
                                     <option>Easy</option>
                                     <option>Medium</option>
                                     <option>Hard</option>
                                 </select>
                             </div>
-                            <button class="btn-primary font-bold py-2 px-4 rounded-md">Generate Question</button>
+                            <button class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300">Generate Question</button>
                         </div>
                     </div>
-
                     <div class="card p-6">
                         <h3 class="text-2xl font-bold mb-4">Track Mock Exams</h3>
                         <p class="text-gray-600 mb-4">Monitor the performance of mock exams administered to your students. See completion rates and average scores.</p>
@@ -713,40 +660,39 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Organizers Prototype Section -->
-            <section id="organizers-proto" class="content-section">
+        <!-- Organizers Prototype Section -->
+        <section id="organizers-proto" class="py-20 bg-gradient-section">
+            <div class="container mx-auto p-4 sm:p-6 lg:p-8">
                 <div class="text-center mb-12">
                     <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">QBank for Organizers: Flawless Competitions.</h1>
                     <p class="max-w-3xl mx-auto text-lg text-gray-600">Manage participant data, analyze exam performance, and generate unique, high-quality questions for your competitions.</p>
                 </div>
-
                 <div class="grid lg:grid-cols-2 gap-8">
                     <div class="card p-6">
                         <h3 class="text-2xl font-bold mb-4">Import Data</h3>
                         <p class="text-gray-600 mb-4">Easily import participant lists, scores, or existing question banks. Supports various formats for seamless integration.</p>
                         <div class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 text-center h-48">
                             <p class="text-gray-500 mb-2">Drag & Drop your files here or</p>
-                            <button class="btn-primary font-bold py-2 px-4 rounded-md">Browse Files</button>
+                            <button class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300">Browse Files</button>
                             <p class="text-xs text-gray-400 mt-2">Max file size: 10MB (mock functionality)</p>
                         </div>
-
                         <h3 class="text-2xl font-bold mt-8 mb-4">Question Maker</h3>
                         <p class="text-gray-600 mb-4">Advanced question generation with tagging, categorization, and difficulty calibration for competition-grade exams.</p>
                         <div class="space-y-4">
                             <div>
                                 <label for="org-question-text" class="block text-sm font-medium text-gray-700">Question Prompt</label>
-                                <textarea id="org-question-text" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2"></textarea>
+                                <textarea id="org-question-text" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
                             </div>
                             <div>
                                 <label for="org-question-tags" class="block text-sm font-medium text-gray-700">Tags (e.g., Algebra, Geometry, Proof)</label>
-                                <input type="text" id="org-question-tags" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2">
+                                <input type="text" id="org-question-tags" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
                             </div>
-                            <button class="btn-primary font-bold py-2 px-4 rounded-md">Create Advanced Question</button>
+                            <button class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300">Create Advanced Question</button>
                         </div>
                     </div>
-
                     <div class="card p-6">
                         <h3 class="text-2xl font-bold mb-4">Exam Analytics</h3>
                         <p class="text-gray-600 mb-4">Gain insights into exam performance, identify challenging questions, and analyze participant strengths and weaknesses. Hover over chart for details.</p>
@@ -766,14 +712,99 @@
                         </ul>
                     </div>
                 </div>
-            </section>
-        </main>
-    </div>
+            </div>
+        </section>
+
+        <!-- Content Creation & Licensing Section -->
+        <section id="content-licensing" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Content Creation & Licensing: Ensuring Quality and Legality.</h1>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">Our commitment to academic integrity and legal compliance is paramount. QBank ensures all content is ethically sourced and legally sound through a multi-pronged strategy.</p>
+                </div>
+                <div class="grid lg:grid-cols-1 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Our Question Creation Strategy</h3>
+                        <p class="text-gray-600 mb-4">To avoid copyright infringement and ensure high-quality, original content, QBank employs a dual-approach to question generation:</p>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-bold text-lg text-indigo-700">AI-Powered Original Content Generation</h4>
+                                <p class="text-sm text-gray-600">Our proprietary AI algorithms, trained on vast datasets of mathematical concepts (not copyrighted questions), generate unique, pedagogically sound questions. These questions are designed to test specific learning objectives and difficulty levels, ensuring originality and relevance.</p>
+                                <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
+                                    <li>AI generates new problem structures and scenarios.</li>
+                                    <li>Focus on conceptual understanding, not memorization of specific questions.</li>
+                                    <li>Human experts review and validate AI-generated content for accuracy and quality.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-indigo-700">Strategic Licensing Partnerships with Exam Boards</h4>
+                                <p class="text-sm text-gray-600">We offer exam boards a compelling value proposition: an economic and secure method to monetize their vast archives of past questions. QBank provides a platform for them to license their content, reaching a wider audience while ensuring their intellectual property is protected and generating new revenue streams.</p>
+                                <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
+                                    <li>Secure, encrypted access to licensed content.</li>
+                                    <li>Revenue sharing models for sustainable partnerships.</li>
+                                    <li>Enhanced brand visibility for exam boards.</li>
+                                    <li>Ensures access to official, high-stakes exam-style questions.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legality & Ethical AI Section -->
+        <section id="legality-ethical-ai" class="py-20 bg-gradient-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Legality & Ethical AI: Building Trust and Compliance.</h1>
+                    <p class="max-w-3xl mx-auto text-lg text-gray-600">QBank is built on a foundation of robust legal compliance and a strong ethical AI framework, ensuring responsible innovation in education.</p>
+                </div>
+                <div class="grid lg:grid-cols-1 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-bold mb-4">Legality & Compliance</h3>
+                        <p class="text-gray-600 mb-4">QBank adheres to the highest standards of legal compliance, particularly concerning intellectual property and data privacy:</p>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-bold text-lg text-indigo-700">Intellectual Property (IP) Adherence</h4>
+                                <p class="text-sm text-gray-600">All questions generated by QBank's AI are original and do not replicate copyrighted material. For any third-party content, explicit licensing agreements will be in place, ensuring full compliance with copyright laws. Our legal team will meticulously vet all content sources and licensing terms.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-indigo-700">Data Privacy & Security</h4>
+                                <p class="text-sm text-gray-600">We adhere to the strictest data protection regulations, including GDPR and other relevant educational data privacy acts (e.g., UK GDPR, Children's Code). Student data is anonymized where possible, encrypted, and used solely for educational personalization and platform improvement. Regular security audits ensure data integrity and protection against breaches.</p>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold mt-8 mb-4">Ethical AI Framework</h3>
+                        <p class="text-gray-600 mb-4">Our AI development follows a rigorous ethical framework, prioritizing fairness, transparency, and accountability in all aspects of the platform:</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
+                            <li>**Bias Mitigation:** We implement rigorous strategies to mitigate algorithmic bias through the use of diverse training data sets, continuous monitoring of outputs, and a human-in-the-loop validation process for generated content.</li>
+                            <li>**Transparency:** Our AI's adaptive learning paths and feedback mechanisms are designed to be understandable, providing insights into *why* certain content is presented.</li>
+                            <li>**Accountability:** We maintain clear accountability for AI-driven decisions and provide mechanisms for user feedback and intervention.</li>
+                            <li>**Guided Learning:** The platform's design principles emphasize "guided learning" and "deep understanding" over simply providing direct answers, ensuring that AI complements rather than replaces genuine cognitive effort and critical thinking development.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Thank You & Contact (Footer) -->
+        <footer id="contact" class="py-20 bg-gray-800 text-white text-center">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold mb-4">Thank You.</h2>
+                <p class="text-lg mb-8">We are confident in our vision, our technology, and our business model. We are ready to take your questions.</p>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+                    <p class="text-lg"><i class="fas fa-user-circle text-xl mr-2"></i> [Your Name]</p>
+                    <p class="text-lg"><i class="fas fa-envelope text-xl mr-2"></i> [Your Email]</p>
+                    <p class="text-lg"><i class="fas fa-phone-alt text-xl mr-2"></i> [Your Phone]</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('.nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
+            const contentSections = document.querySelectorAll('section');
             const menuButton = document.getElementById('menu-button');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
@@ -793,72 +824,51 @@
             menuButton.addEventListener('click', openSidebar);
             overlay.addEventListener('click', closeSidebar);
 
-            // Toggle sidebar solutions dropdown
             if (sidebarSolutionsToggle) {
                 sidebarSolutionsToggle.addEventListener('click', (event) => {
-                    event.preventDefault(); // Prevent default link behavior
+                    event.preventDefault();
                     sidebarSolutionsContent.classList.toggle('open');
-                    // Change arrow direction
-                    const arrow = sidebarSolutionsToggle.querySelector('span:last-child');
-                    if (arrow) {
-                        arrow.innerHTML = sidebarSolutionsContent.classList.contains('open') ? '&#9650;' : '&#9662;';
+                    const icon = sidebarSolutionsToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-caret-down');
+                        icon.classList.toggle('fa-caret-up');
                     }
                 });
             }
 
             navLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
-                    const target = link.getAttribute('data-target');
-                    if (!target) return; // Skip if it's a parent link like "Our Solutions"
+                    const targetId = link.getAttribute('data-target');
 
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    // Add active class to the clicked link, handling both desktop and sidebar links
-                    document.querySelectorAll(`.nav-link[data-target="${target}"]`).forEach(l => l.classList.add('active'));
+                    if (targetId) {
+                        event.preventDefault();
 
-                    // Also set the parent "Our Solutions" link to active if a sub-link is clicked
-                    const parentSolutionLink = document.getElementById('solutions-dropdown-toggle');
-                    const sidebarParentSolutionLink = document.getElementById('sidebar-solutions-toggle');
-                    if (['students-proto', 'schools-proto', 'organizers-proto', 'content-licensing', 'legality-ethical-ai'].includes(target)) {
-                        if (parentSolutionLink) parentSolutionLink.classList.add('active');
-                        if (sidebarParentSolutionLink) sidebarParentSolutionLink.classList.add('active');
-                    } else {
-                        if (parentSolutionLink) parentSolutionLink.classList.remove('active');
-                        if (sidebarParentSolutionLink) sidebarParentSolutionLink.classList.remove('active');
-                    }
+                        // Update active class for nav links
+                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                        document.querySelectorAll(`.nav-link[data-target="${targetId}"]`).forEach(l => l.classList.add('active'));
 
-
-                    contentSections.forEach(section => {
-                        if (section.id === target) {
-                            section.classList.add('active');
-                        } else {
-                            section.classList.remove('active');
+                        // Scroll to the target section
+                        const targetSection = document.getElementById(targetId);
+                        if (targetSection) {
+                            window.scrollTo({
+                                top: targetSection.offsetTop - 70, // Offset for fixed header
+                                behavior: 'smooth'
+                            });
                         }
-                    });
+                    }
 
                     if (link.classList.contains('sidebar-link')) {
                         closeSidebar();
                     }
                 });
             });
-            
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabPanes = document.querySelectorAll('.tab-pane');
 
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabTarget = button.getAttribute('data-tab');
-
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-
-                    tabPanes.forEach(pane => {
-                        if (pane.id === `${tabTarget}-content`) {
-                            pane.classList.remove('hidden');
-                            pane.classList.add('active');
-                        } else {
-                            pane.classList.add('hidden');
-                            pane.classList.remove('active');
-                        }
+            // Smooth scrolling for links with #
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
                     });
                 });
             });
@@ -877,7 +887,7 @@
                         }
                     },
                     tooltip: {
-                        backgroundColor: '#3A3A3A',
+                        backgroundColor: '#1f2937',
                         titleFont: { family: 'Inter', weight: 'bold' },
                         bodyFont: { family: 'Inter' },
                         padding: 10,
@@ -889,10 +899,10 @@
                     y: {
                         beginAtZero: true,
                         grid: {
-                            color: '#E5E7EB'
+                            color: '#e5e7eb'
                         },
                         ticks: {
-                            color: '#6B7280',
+                            color: '#6b7280',
                             font: { family: 'Inter' }
                         }
                     },
@@ -901,13 +911,13 @@
                             display: false
                         },
                         ticks: {
-                            color: '#6B7280',
+                            color: '#6b7280',
                             font: { family: 'Inter' }
                         }
                     }
                 }
             };
-            
+
             function renderMarketGrowthChart() {
                 const ctx = document.getElementById('marketGrowthChart')?.getContext('2d');
                 if (!ctx) return;
@@ -918,8 +928,8 @@
                         datasets: [{
                             label: 'Projected Market Size (USD Billion)',
                             data: [646.8, 209.78, 112.30],
-                            backgroundColor: ['#FBBF24', '#F59E0B', '#D97706'],
-                            borderColor: ['#FBBF24', '#F59E0B', '#D97706'],
+                            backgroundColor: ['#6366f1', '#8b5cf6', '#ec4899'],
+                            borderColor: ['#6366f1', '#8b5cf6', '#ec4899'],
                             borderWidth: 1
                         }]
                     },
@@ -957,21 +967,21 @@
                             type: 'line',
                             label: 'Net Profit/(Loss)',
                             data: [-6.9, -2.9, 5.2, 21.5, 48.5],
-                            borderColor: '#16A34A', // Green
-                            backgroundColor: '#16A34A',
+                            borderColor: '#10B981', // Green
+                            backgroundColor: '#10B981',
                             tension: 0.3,
                             yAxisID: 'y',
                         }, {
                             type: 'bar',
                             label: 'Total Revenue',
                             data: [1.0, 4.5, 14.0, 32.5, 65.0],
-                            backgroundColor: '#F59E0B',
+                            backgroundColor: '#6366f1',
                             yAxisID: 'y',
                         }, {
                             type: 'bar',
                             label: 'Operating Expenses',
                             data: [7.7, 6.5, 5.5, 4.5, 3.5],
-                            backgroundColor: '#9CA3AF',
+                            backgroundColor: '#9ca3af',
                             yAxisID: 'y',
                         }]
                     },
@@ -981,52 +991,6 @@
                                 ticks: { ...chartOptions.scales.y.ticks,
                                     callback: function(value) {
                                         return '£' + value + 'M';
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            function renderBudgetAllocationChart() {
-                const ctx = document.getElementById('budgetAllocationChart')?.getContext('2d');
-                if (!ctx) return;
-                new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Human Resources', 'Tech & Equipment', 'Marketing & Sales', 'Content & IP', 'Contingency & Other'],
-                        datasets: [{
-                            label: 'Budget Allocation',
-                            data: [62.5, 9.4, 9.4, 5.6, 13.1],
-                            backgroundColor: ['#D97706', '#F59E0B', '#FBBF24', '#FEF3C7', '#9CA3AF'],
-                            hoverOffset: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    color: '#3A3A3A',
-                                    font: { family: 'Inter' },
-                                    boxWidth: 15,
-                                    padding: 15
-                                }
-                            },
-                            tooltip: { ...chartOptions.plugins.tooltip,
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        if (context.parsed !== null) {
-                                            label += context.parsed + '%';
-                                        }
-                                        return label;
                                     }
                                 }
                             }
@@ -1045,8 +1009,8 @@
                         datasets: [{
                             label: 'Class Average Score (%)',
                             data: [65, 68, 70, 69, 73, 75, 74, 78],
-                            backgroundColor: '#F59E0B',
-                            borderColor: '#D97706',
+                            backgroundColor: '#6366f1',
+                            borderColor: '#4338ca',
                             borderWidth: 1
                         }]
                     },
@@ -1138,10 +1102,9 @@
                     revisionList.innerHTML += listItem;
                 });
             }
-            
+
             renderMarketGrowthChart();
             renderFinancialProjectionsChart();
-            renderBudgetAllocationChart();
             renderStudentAnalyticsChart();
             renderExamAnalyticsChart();
         });
